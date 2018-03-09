@@ -87,3 +87,6 @@ module.exports = {
 };">> models/index.js;`);
 
 }
+else{
+  console.log("wrong entry");
+}
