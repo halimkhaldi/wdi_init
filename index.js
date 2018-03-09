@@ -57,7 +57,7 @@ app.listen(3000,function(){
 });" >> ${project}/server.js`);
 shell.exec(`cd ${project}/ && npm install`);
 shell.exec(`echo "node_modules" >> .gitignore`);
-shell.exec(`git init && git add -A && git commit -m 'initialized project ${project}'`);
+shell.exec(`cd ${project}/ && git init && git add -A && git commit -m 'initialized project ${project}'`);
 shell.echo(`echo "project created run cd ${project} no need to run npm isntall I already did that for you";`)
 }else{
   shell.echo("project already exists")
