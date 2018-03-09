@@ -29,7 +29,7 @@ shell.exec(`echo '{
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo 'Error: no test specified' && exit 1"
   },
   "author": "",
   "license": "ISC",
