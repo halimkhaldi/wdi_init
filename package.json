@@ -1,6 +1,6 @@
 {
   "name": "wdi_init",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "trying to create my first node package",
   "main": "index.js",
   "scripts": {
