@@ -74,7 +74,7 @@ shell.echo(`echo "project created run cd ${project} no need to run npm isntall I
 var Schema = mongoose.Schema;
 
 ${model}Schema = new Schema({" >> models/${model}.js`);
-  for (i;i<args.length-2;i++){
+  for (i;i<args.length-1;i++){
     shell.exec(`echo "${args[i]}:String," >> models/${model}.js`);
   }
   shell.exec(`echo "${args[i+1]}:String" >> models/${model}.js`);
