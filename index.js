@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var shell=require('shelljs')
 var args=[]
 function cap(string) {
