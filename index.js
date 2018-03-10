@@ -77,7 +77,7 @@ ${model}Schema = new Schema({" >> models/${model}.js`);
   for (i;i<args.length-1;i++){
     shell.exec(`echo "${args[i]}:String," >> models/${model}.js`);
   }
-  shell.exec(`echo "${args[i+1]}:String" >> models/${model}.js`);
+  shell.exec(`echo "${args[i]}:String" >> models/${model}.js`);
   shell.exec(`echo "});
 var ${model} = mongoose.model('${model}', ${model}Schema);
 module.exports = ${model};" >> models/${model}.js`);
