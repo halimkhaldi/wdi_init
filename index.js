@@ -26,6 +26,7 @@ shell.touch(`${project}/public/scripts/app.js`);
 shell.touch(`${project}/public/styles/style.css`);
 shell.echo("server .js");
 shell.touch(`${project}/server.js`);
+shell.touch(`${project}/seed.js`);
 shell.echo("making json package");
 shell.touch(`${project}/package.json`);
 shell.exec(`echo '{
@@ -73,6 +74,7 @@ app.get('/',function(req,res){
 app.listen(3000,function(){
   console.log('server running');
 });" >> ${project}/server.js`);
+shell.exec(`echo 'var db=require('./models/index.js'); >> ${project}/seed.js`);
 shell.exec(`cd ${project}/ && npm install`);
 shell.exec(`echo "node_modules" >> ${project}/.gitignore`);
 shell.exec(`cd ${project}/ && git init && git add -A && git commit -m 'initialized project ${project}'`);
