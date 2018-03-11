@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 var shell=require('shelljs');
 var args=[];
-var types=["String","Integer","Boolean","Double","Date"];
+var types=["String","Number","Boolean","Date"];
 function cap(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -74,7 +74,7 @@ app.get('/',function(req,res){
 app.listen(3000,function(){
   console.log('server running');
 });" >> ${project}/server.js`);
-shell.exec(`echo 'var db=require('./models/index.js'); >> ${project}/seed.js`);
+shell.exec(`echo "var db=require('./models/index.js');" >> ${project}/seed.js`);
 shell.exec(`cd ${project}/ && npm install`);
 shell.exec(`echo "node_modules" >> ${project}/.gitignore`);
 shell.exec(`cd ${project}/ && git init && git add -A && git commit -m 'initialized project ${project}'`);
