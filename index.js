@@ -1,6 +1,7 @@
 #!/usr/bin/env node
-var shell=require('shelljs')
-var args=[]
+var shell=require('shelljs');
+var args=[];
+var types=["String","Integer","Boolean","Double","Date"];
 function cap(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -48,9 +49,25 @@ shell.echo('basic server.js');
 shell.exec(`echo "var express=require('express');
 var app=express();
 var db=require('./models/index.js');
+var bodyParser = require('body-parser');
+
+// Configure app
+app.set('views', __dirname + '/views');      // Views directory
+app.use(express.static('public'));          // Static directory
+app.use(bodyParser.urlencoded({ extended: true })); // req.body
+
+// Set CORS Headers
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+//basic root route
 app.get('/',function(req,res){
   console.log('do you stuff here')
   });
+
 
 
 app.listen(3000,function(){
@@ -67,17 +84,25 @@ shell.echo(`echo "project created run cd ${project} no need to run npm isntall I
   console.log("please enter a name for your project")
 }
 }else if( args[2] == '-g') {
-  var i=4;
-  var model=cap(args[3]);
+	if(args[3] =='model'){
+  var i=5;
+  var model=cap(args[4]);
   shell.echo(`creating model ${model}` );
   shell.exec(`echo "var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 ${model}Schema = new Schema({" >> models/${model}.js`);
   for (i;i<args.length-1;i++){
-    shell.exec(`echo "${args[i]}:String," >> models/${model}.js`);
+	var option=args[i].split(':');
+	option[1] = option[1] || 'String';
+	option[1]=  (types.includes(cap(option[1]))) ? cap(option[1]) : 'String';
+
+    shell.exec(`echo "${option[0]}:${option[1]}," >> models/${model}.js`);
   }
-  shell.exec(`echo "${args[i]}:String" >> models/${model}.js`);
+	var option=args[i].split(':');
+	option[1] = option[1] || 'String';
+	option[1]= (types.includes(cap(option[1]))) ? cap(option[1]) : 'String';
+  shell.exec(`echo "${option[0]}:${option[1]}" >> models/${model}.js`);
   shell.exec(`echo "});
 var ${model} = mongoose.model('${model}', ${model}Schema);
 module.exports = ${model};" >> models/${model}.js`);
@@ -87,6 +112,8 @@ module.exports = {
     ${model}: ${model}
 };">> models/index.js;`);
 
+}else
+console.log("wrong entry you may use -g model or -g controller")
 }
 else{
   console.log("wrong entry");
