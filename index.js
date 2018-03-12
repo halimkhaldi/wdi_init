@@ -71,14 +71,16 @@ app.get('/',function(req,res){
 
 
 
-app.listen(3000,function(){
+app.listen(process.env.PORT || 3000,function(){
   console.log('server running');
 });" >> ${project}/server.js`);
 shell.exec(`echo "var db=require('./models/index.js');" >> ${project}/seed.js`);
+shell.exec(`echo 'web: node server.js' >> ${project}/Procfile`);
 shell.exec(`cd ${project}/ && npm install`);
 shell.exec(`echo "node_modules" >> ${project}/.gitignore`);
 shell.exec(`cd ${project}/ && git init && git add -A && git commit -m 'initialized project ${project}'`);
 shell.echo(`echo "project created run cd ${project} no need to run npm isntall I already did that for you";`)
+
 }else{
   shell.echo("project already exists")
 }
