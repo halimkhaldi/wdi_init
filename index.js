@@ -111,10 +111,7 @@ ${model}Schema = new Schema({" >> models/${model}.js`);
 var ${model} = mongoose.model('${model}', ${model}Schema);
 module.exports = ${model};" >> models/${model}.js`);
 shell.exec(`echo "/* adding model ${model} to index.js */
-var ${model} = require('./${model}');
-module.exports = {
-    ${model}: ${model}
-};">> models/index.js;`);
+module.exports.${model} = require('./${model}');">> models/index.js;`);
 
 }else
 console.log("wrong entry you may use -g model or -g controller")
