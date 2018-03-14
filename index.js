@@ -18,7 +18,7 @@ if ( shell.mkdir(project)){
   shell.echo("creating a models/index.js")
 shell.exec(` echo "var mongoose = require('mongoose');
 /*add you connection somewhere here*/
-mongoose.connect('mongodb://localhost/${project}', {promiseLibrary: global.Promise});
+mongoose.connect( process.env.MONGODB_URI || 'mongodb://localhost/${project}', {promiseLibrary: global.Promise});
 " >> ${project}/models/index.js`);
 shell.echo("creating script and style");
 shell.touch(`${project}/public/scripts/app.js`);
